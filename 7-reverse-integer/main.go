@@ -18,6 +18,7 @@ func reverseInt(num int) int {
 	return result
 }
 
+// https://leetcode.cn/problems/reverse-integer/
 func main() {
 	fmt.Println(reverseInt(0))
 	fmt.Println(reverseInt(1234))
