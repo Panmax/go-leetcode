@@ -1,17 +1,17 @@
 package main
 
-func detectCycle_20220810(head *ListNode) *ListNode {
+func detectCycle_20220814(head *ListNode) *ListNode {
 	slow, fast := head, head
 	for slow != nil && fast != nil && fast.Next != nil {
 		slow = slow.Next
 		fast = fast.Next.Next
 		if slow == fast {
-			ptr := head
-			for slow != ptr {
+			pre := head
+			for pre != slow {
+				pre = pre.Next
 				slow = slow.Next
-				ptr = ptr.Next
 			}
-			return slow
+			return pre
 		}
 	}
 	return nil
