@@ -1,11 +1,10 @@
 package main
 
-func addTwoNumbers_20220813(l1 *ListNode, l2 *ListNode) *ListNode {
-	var head, tail *ListNode
+func addTwoNumbers_20220816(l1 *ListNode, l2 *ListNode) *ListNode {
 	carry := 0
-
+	var head, tail *ListNode
 	for l1 != nil || l2 != nil {
-		var n1, n2 int
+		n1, n2 := 0, 0
 		if l1 != nil {
 			n1 = l1.Val
 			l1 = l1.Next
@@ -16,7 +15,7 @@ func addTwoNumbers_20220813(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 
 		sum := n1 + n2 + carry
-		carry, sum = sum/10, sum%10
+		sum, carry = sum%10, sum/10
 
 		if head == nil {
 			head = &ListNode{
@@ -30,12 +29,8 @@ func addTwoNumbers_20220813(l1 *ListNode, l2 *ListNode) *ListNode {
 			tail = tail.Next
 		}
 	}
-
 	if carry != 0 {
-		tail.Next = &ListNode{
-			Val: carry,
-		}
+		tail.Next = &ListNode{Val: carry}
 	}
-
 	return head
 }
