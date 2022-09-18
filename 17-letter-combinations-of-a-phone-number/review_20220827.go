@@ -7,7 +7,6 @@ func letterCombinations_20220827(digits string) []string {
 	}
 
 	backtrace_202208027(digits, 0, "")
-
 	return res
 }
 
@@ -18,7 +17,7 @@ func backtrace_202208027(digits string, index int, combination string) {
 		digit := digits[index]
 		letters := phoneMap[string(digit)]
 		for _, letter := range letters {
-			backtrace(digits, index+1, combination+string(letter))
+			backtrace_202208027(digits, index+1, combination+string(letter))
 		}
 	}
 }
