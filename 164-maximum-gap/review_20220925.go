@@ -2,18 +2,6 @@ package main
 
 import "math"
 
-type Bucket struct {
-	Min int
-	Max int
-}
-
-func NewBucket() *Bucket {
-	return &Bucket{
-		Min: math.MaxInt32,
-		Max: math.MinInt32,
-	}
-}
-
 func maximumGap_20220925(nums []int) int {
 	if len(nums) < 2 {
 		return 0
