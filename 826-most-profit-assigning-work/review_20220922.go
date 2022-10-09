@@ -3,7 +3,7 @@ package main
 import "sort"
 
 func maxProfitAssignment_20220922(difficulty []int, profit []int, worker []int) int {
-	var pairs Paris
+	var pairs Pairs
 	for i := range difficulty {
 		pairs = append(pairs, Pair{
 			Diff:   difficulty[i],

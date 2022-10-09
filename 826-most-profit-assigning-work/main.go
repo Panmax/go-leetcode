@@ -7,22 +7,22 @@ type Pair struct {
 	Profit int
 }
 
-type Paris []Pair
+type Pairs []Pair
 
-func (p Paris) Less(i, j int) bool {
+func (p Pairs) Less(i, j int) bool {
 	return p[i].Diff < p[j].Diff
 }
 
-func (p Paris) Len() int {
+func (p Pairs) Len() int {
 	return len(p)
 }
 
-func (p Paris) Swap(i, j int) {
+func (p Pairs) Swap(i, j int) {
 	p[i], p[j] = p[j], p[i]
 }
 
 func maxProfitAssignment(difficulty []int, profit []int, worker []int) int {
-	var pairs Paris
+	var pairs Pairs
 	for i := range difficulty {
 		pairs = append(pairs, Pair{
 			Diff:   difficulty[i],
