@@ -2,14 +2,14 @@ package main
 
 import "sort"
 
-func fourSum(nums []int, target int) [][]int {
+func fourSum_20221012(nums []int, target int) [][]int {
 	sort.Ints(nums)
-	return nSumTarget(nums, 4, 0, target)
+	return nSumTarget_20221012(nums, 4, 0, target)
 }
 
-func nSumTarget(nums []int, n int, start int, target int) [][]int {
+func nSumTarget_20221012(nums []int, n int, start int, target int) [][]int {
 	var res [][]int
-	if n < 2 || len(nums) == 0 || len(nums) < n {
+	if n < 2 || len(nums) < n {
 		return res
 	}
 	if n == 2 {
@@ -17,37 +17,39 @@ func nSumTarget(nums []int, n int, start int, target int) [][]int {
 		for left < right {
 			num1, num2 := nums[left], nums[right]
 			sum := num1 + num2
-			if sum < target {
+			if sum == target {
+				res = append(res, []int{num1, num2})
 				for left < right && nums[left] == num1 {
 					left++
 				}
-			} else if sum > target {
 				for left < right && nums[right] == num2 {
 					right--
 				}
-			} else {
-				res = append(res, []int{nums[left], nums[right]})
+			} else if sum < target {
 				for left < right && nums[left] == num1 {
 					left++
 				}
+			} else {
 				for left < right && nums[right] == num2 {
 					right--
 				}
 			}
 		}
 	} else {
+		// i 从 start 开始
 		for i := start; i < len(nums); i++ {
 			num := nums[i]
-			nRes := nSumTarget(nums, n-1, i+1, target-num)
-			for _, arr := range nRes {
+			// n-1; i+1
+			tmpArrs := nSumTarget_20221012(nums, n-1, i+1, target-num)
+			for _, arr := range tmpArrs {
 				arr = append(arr, num)
 				res = append(res, arr)
 			}
-			// i+1 和 num 比较，外边有一次++了，这里不用多加
 			for i+1 < len(nums) && nums[i+1] == num {
 				i++
 			}
 		}
 	}
+
 	return res
 }
