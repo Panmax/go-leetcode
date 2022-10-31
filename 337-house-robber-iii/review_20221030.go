@@ -1,11 +1,5 @@
 package main
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 func rob_20221030(root *TreeNode) int {
 	includeMap := make(map[*TreeNode]int)
 	excludeMap := make(map[*TreeNode]int)
@@ -23,11 +17,4 @@ func rob_20221030(root *TreeNode) int {
 
 	dfs(root)
 	return Max(includeMap[root], excludeMap[root])
-}
-
-func Max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
 }
