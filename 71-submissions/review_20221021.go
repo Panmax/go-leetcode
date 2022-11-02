@@ -2,7 +2,7 @@ package main
 
 import "strings"
 
-func simplifyPath_20221221(path string) string {
+func simplifyPath_20221021(path string) string {
 	var stack []string
 	for _, name := range strings.Split(path, "/") {
 		if name == ".." {

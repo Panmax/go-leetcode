@@ -2,7 +2,7 @@ package main
 
 import "strings"
 
-func simplifyPath_20221217(path string) string {
+func simplifyPath_20221017(path string) string {
 	var stack []string
 	for _, name := range strings.Split(path, "/") {
 		if name == ".." {
@@ -18,7 +18,7 @@ func simplifyPath_20221217(path string) string {
 }
 
 func main() {
-	println(simplifyPath_20221217("/home/"))
-	println(simplifyPath_20221217("/../"))
-	println(simplifyPath_20221217("/a/./b/../../c/"))
+	println(simplifyPath_20221017("/home/"))
+	println(simplifyPath_20221017("/../"))
+	println(simplifyPath_20221017("/a/./b/../../c/"))
 }
