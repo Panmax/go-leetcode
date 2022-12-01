@@ -3,7 +3,7 @@ package main
 import "strings"
 
 func removeKdigits(num string, k int) string {
-	stack := []byte{}
+	var stack []byte
 	for i := range num {
 		// for
 		for k > 0 && len(stack) > 0 && num[i] < stack[len(stack)-1] {
