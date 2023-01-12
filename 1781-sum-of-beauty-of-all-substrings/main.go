@@ -10,6 +10,7 @@ func beautySum(s string) int {
             maxFreq = max(maxFreq, counts[val-'a'])
             minFreq := len(s)
             for _, c := range counts {
+                // 加判断
                 if c > 0{
                     minFreq = min(minFreq, c)
                 }
