@@ -1,21 +1,20 @@
 package main
 
-func solveNQueens_20230206(n int) [][]string {
+func solveNQueens_20230221(n int) [][]string {
 	res = make([][]string, 0)
 	queens := make([]int, n)
 	for i := 0; i < n; i++ {
 		queens[i] = -1
 	}
-	columns, diagonals1, diagonals2 := make(map[int]bool, 0), make(map[int]bool, 0), make(map[int]bool, 0)
-	backtrace_20230206(queens, n, 0, columns, diagonals1, diagonals2)
+	columns, diagonals1, diagonals2 := make(map[int]bool), make(map[int]bool), make(map[int]bool)
+	backtrace_20230221(queens, n, 0, columns, diagonals1, diagonals2)
 	return res
 }
 
-func backtrace_20230206(queens []int, n, row int, columns, diagonals1, diagonals2 map[int]bool) {
+func backtrace_20230221(queens []int, n int, row int, columns, diagonals1, diagonals2 map[int]bool) {
 	if n == row {
-		board := generateBoard_20230206(queens, n)
+		board := generateBoard_20230221(queens, n)
 		res = append(res, board)
-		return
 	}
 	for i := 0; i < n; i++ {
 		if columns[i] {
@@ -29,11 +28,11 @@ func backtrace_20230206(queens []int, n, row int, columns, diagonals1, diagonals
 		if diagonals2[diagonal2] {
 			continue
 		}
-		queens[row] = i
 		columns[i] = true
 		diagonals1[diagonal1] = true
 		diagonals2[diagonal2] = true
-		backtrace_20230206(queens, n, row+1, columns, diagonals1, diagonals2)
+		queens[row] = i
+		backtrace_20230221(queens, n, row+1, columns, diagonals1, diagonals2)
 		queens[row] = -1
 		delete(columns, i)
 		delete(diagonals1, diagonal1)
@@ -41,7 +40,7 @@ func backtrace_20230206(queens []int, n, row int, columns, diagonals1, diagonals
 	}
 }
 
-func generateBoard_20230206(queens []int, n int) []string {
+func generateBoard_20230221(queens []int, n int) []string {
 	var board []string
 	for i := 0; i < n; i++ {
 		row := make([]byte, n)
