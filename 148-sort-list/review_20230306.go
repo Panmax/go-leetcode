@@ -1,15 +1,10 @@
 package main
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
+func sortList_20230306(head *ListNode) *ListNode {
+	return sort_20230306(head, nil)
 }
 
-func sortList(head *ListNode) *ListNode {
-	return sort(head, nil)
-}
-
-func sort(head, tail *ListNode) *ListNode {
+func sort_20230306(head *ListNode, tail *ListNode) *ListNode {
 	if head == nil {
 		return head
 	}
@@ -17,19 +12,19 @@ func sort(head, tail *ListNode) *ListNode {
 		head.Next = nil
 		return head
 	}
-
 	slow, fast := head, head
 	for fast != tail && fast.Next != tail {
 		slow = slow.Next
 		fast = fast.Next.Next
 	}
 	mid := slow
-	return merge(sort(head, mid), sort(mid, tail))
+	return merge_20230306(sort_20230306(head, mid), sort_20230306(mid, tail))
 }
 
-func merge(node1, node2 *ListNode) *ListNode {
+func merge_20230306(node1 *ListNode, node2 *ListNode) *ListNode {
 	dummy := &ListNode{}
 	temp, temp1, temp2 := dummy, node1, node2
+	// for
 	for temp1 != nil && temp2 != nil {
 		if temp1.Val < temp2.Val {
 			temp.Next = temp1
