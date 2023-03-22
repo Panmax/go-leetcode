@@ -7,6 +7,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 		dp[i] = make([]int, n)
 	}
 
+	// init
 	for i := 0; i < m; i++ {
 		if obstacleGrid[i][0] == 0 {
 			dp[i][0] = 1
