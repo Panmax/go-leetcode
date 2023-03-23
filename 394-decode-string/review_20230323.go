@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func decodeString_20230129(s string) string {
+func decodeString_20230323(s string) string {
 	var ptr int
 	var stack []string
 	for ptr < len(s) {
@@ -18,17 +18,20 @@ func decodeString_20230129(s string) string {
 		} else {
 			ptr++
 			var sub []string
-			for len(stack) > 0 && stack[len(stack)-1] != "[" {
+			for len(stack) > 0 {
+				if stack[len(stack)-1] == "[" {
+					break
+				}
 				sub = append(sub, stack[len(stack)-1])
 				stack = stack[:len(stack)-1]
 			}
 			stack = stack[:len(stack)-1]
 			for i := 0; i < len(sub)/2; i++ {
-				sub[i], sub[len(sub)-i-1] = sub[len(sub)-i-1], sub[i]
+				sub[i], sub[len(sub)-1-i] = sub[len(sub)-1-i], sub[i]
 			}
-			repeat, _ := strconv.Atoi(stack[len(stack)-1])
+			d, _ := strconv.Atoi(stack[len(stack)-1])
 			stack = stack[:len(stack)-1]
-			repeatStr := strings.Repeat(getString(sub), repeat)
+			repeatStr := strings.Repeat(getString(sub), d)
 			stack = append(stack, repeatStr)
 		}
 	}
