@@ -29,16 +29,19 @@ func Constructor(capacity int) LRUCache {
 }
 
 func (this *LRUCache) Get(key int) int {
-	if node, ok := this.cache[key]; !ok {
-		return -1
-	} else {
+	if node, ok := this.cache[key]; ok {
+		// add
 		this.moveToHead(node)
 		return node.value
 	}
+	return -1
 }
 
 func (this *LRUCache) Put(key int, value int) {
-	if node, ok := this.cache[key]; !ok {
+	if node, ok := this.cache[key]; ok {
+		node.value = value
+		this.moveToHead(node)
+	} else {
 		node = initDLinkedNode(key, value)
 		// add
 		this.cache[key] = node
@@ -46,13 +49,9 @@ func (this *LRUCache) Put(key int, value int) {
 		this.size++
 		if this.size > this.capacity {
 			tail := this.removeTail()
-			// delete
 			delete(this.cache, tail.key)
 			this.size--
 		}
-	} else {
-		node.value = value
-		this.moveToHead(node)
 	}
 }
 
@@ -64,8 +63,7 @@ func (this *LRUCache) addToHead(node *DLinkedNode) {
 }
 
 func (this *LRUCache) removeNode(node *DLinkedNode) {
-	node.prev.next = node.next
-	node.next.prev = node.prev
+	node.prev.next, node.next.prev = node.next, node.prev
 }
 
 func (this *LRUCache) moveToHead(node *DLinkedNode) {
