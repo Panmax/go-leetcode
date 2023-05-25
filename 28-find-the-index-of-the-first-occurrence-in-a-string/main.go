@@ -1,5 +1,6 @@
 package main
 
+// https://www.youtube.com/watch?v=jsTfSMkQibw
 func strStr(haystack string, needle string) int {
 	if len(needle) == 0 {
 		return 0
