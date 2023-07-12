@@ -1,0 +1,40 @@
+package main
+
+import (
+	"math/rand"
+	"time"
+)
+
+func findKthLargest(nums []int, k int) int {
+	rand.Seed(time.Now().UnixNano())
+	return quickSelect(nums, 0, len(nums)-1, len(nums)-k)
+}
+
+func quickSelect(nums []int, l int, r int, index int) int {
+	q := randomPartition(nums, l, r)
+	if q == index {
+		return nums[q]
+	} else if q < index {
+		return quickSelect(nums, q+1, r, index)
+	}
+	return quickSelect(nums, l, q-1, index)
+}
+
+func randomPartition(nums []int, l int, r int) int {
+	i := rand.Intn(r-l+1) + l
+	nums[i], nums[r] = nums[r], nums[i]
+	return partition(nums, l, r)
+}
+
+func partition(nums []int, l int, r int) int {
+	x := nums[r]
+	i := l - 1
+	for j := l; j < r; j++ {
+		if nums[j] <= x {
+			i++
+			nums[i], nums[j] = nums[j], nums[i]
+		}
+	}
+	nums[i+1], nums[r] = nums[r], nums[i+1]
+	return i + 1
+}
