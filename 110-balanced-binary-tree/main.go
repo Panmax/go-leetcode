@@ -10,7 +10,7 @@ func isBalanced(root *TreeNode) bool {
 	if root == nil {
 		return true
 	}
-	return abc(height(root.Left)-height(root.Right)) <= 1 && isBalanced(root.Left) && isBalanced(root.Right)
+	return abs(height(root.Left)-height(root.Right)) <= 1 && isBalanced(root.Left) && isBalanced(root.Right)
 }
 
 func height(node *TreeNode) int {
@@ -27,7 +27,7 @@ func max(a, b int) int {
 	return a
 }
 
-func abc(i int) int {
+func abs(i int) int {
 	if i < 0 {
 		return -i
 	}
