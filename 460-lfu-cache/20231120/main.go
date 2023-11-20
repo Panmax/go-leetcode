@@ -7,70 +7,10 @@ type LFUCache struct {
 	capacity int
 }
 
-func Constructor(capacity int) LFUCache {
-	return LFUCache{
-		cache:    make(map[int]*node),
-		freqMap:  make(map[int]*list),
-		capacity: capacity,
-	}
-}
-
-func (this *LFUCache) Get(key int) int {
-	if n, ok := this.cache[key]; ok {
-		this.incrFreq(n)
-		return n.value
-	}
-	return -1
-}
-
-func (this *LFUCache) Put(key int, value int) {
-	if n, ok := this.cache[key]; ok {
-		n.value = value
-		this.incrFreq(n)
-		return
-	}
-	n := newNode(key, value)
-	if len(this.cache) == this.capacity {
-		l := this.freqMap[this.minFreq]
-		removeNode := l.removeTail()
-		delete(this.cache, removeNode.key)
-	}
-	n.freq = 1
-	this.cache[key] = n
-	this.minFreq = 1
-	this.addNode(n)
-}
-
-func (this *LFUCache) incrFreq(n *node) {
-	l := this.freqMap[n.freq]
-	l.removeNode(n)
-	if l.empty() && n.freq == this.minFreq {
-		this.minFreq++
-	}
-	n.freq++
-	this.addNode(n)
-}
-
-func (this *LFUCache) addNode(n *node) {
-	l := this.freqMap[n.freq]
-	if l == nil {
-		l = newList()
-		this.freqMap[n.freq] = l
-	}
-	l.addFirst(n)
-}
-
 type node struct {
 	key, value int
 	prev, next *node
 	freq       int
-}
-
-func newNode(k, v int) *node {
-	return &node{
-		key:   k,
-		value: v,
-	}
 }
 
 type list struct {
@@ -106,4 +46,65 @@ func newList() *list {
 	l.head.next = l.tail
 	l.tail.prev = l.head
 	return l
+}
+
+func Constructor(capacity int) LFUCache {
+	return LFUCache{
+		cache:    make(map[int]*node),
+		freqMap:  make(map[int]*list),
+		minFreq:  0,
+		capacity: capacity,
+	}
+}
+
+func (this *LFUCache) Get(key int) int {
+	if n, ok := this.cache[key]; ok {
+		this.incrFreq(n)
+		return n.value
+	}
+	return -1
+}
+
+func (this *LFUCache) Put(key int, value int) {
+	if n, ok := this.cache[key]; ok {
+		n.value = value
+		this.incrFreq(n)
+		return
+	}
+	n := newNode(key, value)
+	if len(this.cache) == this.capacity {
+		l := this.freqMap[this.minFreq]
+		removeNode := l.removeTail()
+		delete(this.cache, removeNode.key)
+	}
+	n.freq = 1
+	this.cache[key] = n
+	this.minFreq = 1
+	this.addNode(n)
+}
+
+func newNode(k, v int) *node {
+	return &node{
+		key:   k,
+		value: v,
+	}
+}
+
+func (this *LFUCache) incrFreq(n *node) {
+	l := this.freqMap[n.freq]
+	l.removeNode(n)
+	if l.empty() && n.freq == this.minFreq {
+		this.minFreq++
+	}
+	n.freq++
+	this.addNode(n)
+}
+
+func (this *LFUCache) addNode(n *node) {
+	l := this.freqMap[n.freq]
+	if l == nil {
+		l = newList()
+		this.freqMap[n.freq] = l
+	}
+	l.addFirst(n)
 }
