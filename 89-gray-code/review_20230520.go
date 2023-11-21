@@ -2,7 +2,7 @@ package main
 
 // 看不懂的话去看这个题解：
 // https://leetcode.cn/problems/gray-code/solution/gray-code-jing-xiang-fan-she-fa-by-jyd/
-func grayCode_2023050(n int) []int {
+func grayCode_20230520(n int) []int {
 	var res []int
 	res = append(res, 0)
 	base := 1
