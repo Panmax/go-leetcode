@@ -11,5 +11,5 @@ func check_20231007(l, r *TreeNode) bool {
 	if l == nil || r == nil {
 		return false
 	}
-	return l.Val == r.Val && check(l.Left, r.Right) && check(l.Right, r.Left)
+	return l.Val == r.Val && check_20231007(l.Left, r.Right) && check_20231007(l.Right, r.Left)
 }
