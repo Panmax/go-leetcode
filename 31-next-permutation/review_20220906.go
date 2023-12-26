@@ -12,10 +12,7 @@ func nextPermutation_20220906(nums []int) {
 			j--
 		}
 
-		// 这里要判断 j > i
-		if j > i {
-			nums[i], nums[j] = nums[j], nums[i]
-		}
+		nums[i], nums[j] = nums[j], nums[i]
 	}
 
 	// i+1 后的区间反转
