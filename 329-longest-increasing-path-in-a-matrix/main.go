@@ -17,7 +17,7 @@ func longestIncreasingPath(matrix [][]int) int {
 		if memory[r][c] > 0 {
 			return memory[r][c]
 		}
-		memory[r][c]++
+		memory[r][c] = 1
 		for _, dir := range dirs {
 			newR, newC := r+dir[0], c+dir[1]
 			if newR >= 0 && newR < row && newC >= 0 && newC < column && matrix[newR][newC] > matrix[r][c] {
